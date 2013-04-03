@@ -11,14 +11,20 @@ function TicTac() {
 
     this.newGame = function(){
         this.available = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        this.playerOne.squares = [];
-        this.playerTwo.squares = [];
-        this.playerOne.possibleWins = [];
-        this.playerTwo.possibleWins = [];
-        this.playerOne.forks = [];
-        this.playerTwo.forks = [];
-        this.playerOne.hasWon = false;
-        this.playerTwo.hasWon = false;
+        this.playerOne = {
+            squares : [],
+            possibleWins : [],
+            forks : [],
+            hasWon : false,
+            brain : null
+        };
+        this.playerTwo = {
+            squares : [],
+            possibleWins : [],
+            forks : [],
+            hasWon : false,
+            brain : null
+        };
     };
 
     this.setArrays = function(avail, one, two){
@@ -28,7 +34,7 @@ function TicTac() {
         this.playerTwo.squares = two;
     };
 
-    this.checkForWins = function(){
+    this.checkForWinner = function(){
         //checks if someone won the game
         for(var i = 0; i < 8; i++){
             if(self.wins[i].diff(self.playerOne.squares).length === 0){
@@ -46,6 +52,7 @@ function TicTac() {
         for(var len = arrayOne.length, i = 0; i < len; i++){
             if(arrayOne[i] === value){
                 arrayTwo.push(arrayOne[i]);
+                arrayTwo.sort();
                 arrayOne.splice(i, 1);
             };
         };
@@ -69,6 +76,9 @@ function TicTac() {
 
     this.possibleForks = function(){
         //checks if any forks can be setup on the next turn
+        this.playerOne.forks = [];
+        this.playerTwo.forks = [];
+
         for(value in this.available){
             this.playerOne.squares.push(this.available[value]);
             this.possibleWins();
@@ -83,6 +93,47 @@ function TicTac() {
                 this.playerTwo.forks.push(self.available[value]);
             };
             this.playerTwo.squares.pop();
+        };
+        this.playerOne.forks.sort();
+        this.playerTwo.forks.sort();
+    };
+
+    this.setBrains = function(brainOne, brainTwo){
+        this.playerOne.brain = brainOne;
+        this.playerTwo.brain = brainTwo;
+    };
+
+    this.aiTurn = function(currentPlayer, otherPlayer){
+        this.possibleWins();
+        this.possibleForks();
+        var currentPlayer = currentPlayer;
+        var otherPlayer = otherPlayer;
+
+        if(currentPlayer.possibleWins.length > 0){
+            this.moveElement(this.available, currentPlayer.squares, currentPlayer.possibleWins[0][0]);
+            return;
+        };
+
+        if (otherPlayer.possibleWins.length > 0){
+            this.moveElement(this.available, currentPlayer.squares, otherPlayer.possibleWins[0][0]);
+            return;
+        };
+
+        if(currentPlayer.forks.length > 0){
+            this.moveElement(this.available, currentPlayer.squares, currentPlayer.forks[0]);
+            return;
+        };
+
+        if(otherPlayer.forks.length > 0 ){
+            var temp = 0;
+            var i = 0;
+            while(temp === 0){
+                if(otherPlayer.forks[i] % 2 !== 0){
+                    temp = i;
+                };
+                i += 1;
+            };
+            this.moveElement(this.available, currentPlayer.squares, otherPlayer.forks[temp]);
         };
     };
 };
