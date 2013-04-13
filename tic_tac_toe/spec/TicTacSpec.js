@@ -356,7 +356,7 @@ describe("TicTac", function() {
             expect(tic.playerTwo.squares).toEqual([5]);
         });
 
-        it('playerOne ai should setup a fork if it cannot win or block', function(){
+        it('playerOne ai should setup a fork if it cannot win and doesnt need to block', function(){
             tic.setArrays([3, 4, 2, 6, 7, 8], [1, 5], [9]);
             tic.aiTurn(tic.playerOne, tic.playerTwo);
             expect(tic.playerOne.squares).toEqual([1, 2, 5]);
@@ -366,7 +366,7 @@ describe("TicTac", function() {
             expect(tic.playerOne.squares).toEqual([1, 2, 5]);
         });
 
-        it('playerTwo ai should setup a fork if it cannot win or block', function(){
+        it('playerTwo ai should setup a fork if it cannot win and doesnt need to block', function(){
             tic.setArrays([3, 4, 2, 6, 7, 8], [9], [1, 5]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([1, 2, 5]);
@@ -392,6 +392,33 @@ describe("TicTac", function() {
             tic.setArrays([2, 1, 4, 6, 9, 8], [3, 5], [7]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([7, 9]);
+        });
+
+        it('playerTwo ai should choose the side with a forced move on an angle flanked center', function(){
+            tic.setArrays([2, 3, 4, 6, 7, 8], [1, 9], [5]);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([2, 5]);
+
+            tic.setArrays([1, 2, 4, 6, 8, 9], [3, 7], [5]);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([2, 5]);
+        });
+
+        it('playerOne should take the center if it is free', function(){
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([5]);
+        });
+
+        it('playerTwo should take the center if it is free', function(){
+            tic.setArrays([1, 2, 3, 4, 5, 6, 7, 8], [9], []);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([5]);
+        });
+
+        it('playerTwo should take a corner when one is available', function(){
+            tic.setArrays([1, 2, 3, 4, 6, 7, 8, 9], [5], []);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([1]);
         });
     });
 });

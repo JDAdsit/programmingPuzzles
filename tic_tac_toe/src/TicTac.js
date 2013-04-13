@@ -109,21 +109,31 @@ function TicTac() {
         var currentPlayer = currentPlayer;
         var otherPlayer = otherPlayer;
 
+        //can current player win right now? make it so
         if(currentPlayer.possibleWins.length > 0){
             this.moveElement(this.available, currentPlayer.squares, currentPlayer.possibleWins[0][0]);
             return;
         };
 
+        //can opponent win right now? stop him
         if (otherPlayer.possibleWins.length > 0){
             this.moveElement(this.available, currentPlayer.squares, otherPlayer.possibleWins[0][0]);
             return;
         };
 
+        //set up a fork, so current player can win next turn
         if(currentPlayer.forks.length > 0){
             this.moveElement(this.available, currentPlayer.squares, currentPlayer.forks[0]);
             return;
         };
 
+        //if second player is in that weird flanked position place a side
+        if(currentPlayer.squares[0] === 5 && ((otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9) || (otherPlayer.squares[0] === 3 && otherPlayer.squares[1] === 7))){
+            this.moveElement(this.available, currentPlayer.squares, 2);
+            return;
+        };
+
+        //set up forced plays, but dont force a fork
         if(otherPlayer.forks.length > 0 ){
             var temp = 0;
             var i = 0;
@@ -134,6 +144,13 @@ function TicTac() {
                 i += 1;
             };
             this.moveElement(this.available, currentPlayer.squares, otherPlayer.forks[temp]);
+            return;
         };
+        
+        if(self.available.diff([5]).length < self.available.length){
+            this.moveElement(this.available, currentPlayer.squares, 5);
+            return;
+        };
+
     };
 };
