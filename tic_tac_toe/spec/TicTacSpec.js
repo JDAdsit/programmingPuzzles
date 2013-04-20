@@ -158,6 +158,11 @@ describe("TicTac", function() {
             tic.checkForWinner();
             expect(tic.playerOne.hasWon).toEqual(false);
             expect(tic.playerTwo.hasWon).toEqual(true);
+
+            tic.setArrays([9, 8, 6], [1, 2, 4], [3, 5, 7]);
+            tic.checkForWinner();
+            expect(tic.playerOne.hasWon).toEqual(false);
+            expect(tic.playerTwo.hasWon).toEqual(true);
         });
 
         it('should return true for player two when he has win 3, 5, 7 and extra places', function(){
@@ -392,6 +397,10 @@ describe("TicTac", function() {
             tic.setArrays([2, 1, 4, 6, 9, 8], [3, 5], [7]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([7, 9]);
+
+            tic.setArrays([1, 3, 6, 7, 8, 9], [2, 4], [5]);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([1, 5]);
         });
 
         it('playerTwo ai should choose the side with a forced move on an angle flanked center', function(){
@@ -420,5 +429,38 @@ describe("TicTac", function() {
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([1]);
         });
+
+        it('playerOne should take a corner when one is available', function(){
+            tic.setArrays([3], [1, 6, 7, 8], [2, 4, 5, 9]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([1, 3, 6, 7, 8]);
+
+            tic.setArrays([7], [2, 3, 4, 9], [1, 5, 6, 8]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([2, 3, 4, 7, 9]);
+
+            tic.setArrays([9], [1, 3, 4, 8], [2, 5, 6, 7]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([1, 3, 4, 8, 9]);
+        });
+
+        it('playerOne should take a side when that is all that is available', function(){
+            tic.setArrays([2], [1, 6, 7, 8], [3, 4, 5, 9]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([1, 2, 6, 7, 8]);
+
+            tic.setArrays([4], [2, 6, 7, 9], [1, 3, 5, 8]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([2, 4, 6, 7, 9]);
+
+            tic.setArrays([6], [1, 3, 4, 8], [2, 5, 7, 9]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([1, 3, 4, 6, 8]);
+
+            tic.setArrays([8], [2, 3, 4, 9], [1, 5, 6, 7]);
+            tic.aiTurn(tic.playerOne, tic.playerTwo);
+            expect(tic.playerOne.squares).toEqual([2, 3, 4, 8, 9]);
+        });
+
     });
 });

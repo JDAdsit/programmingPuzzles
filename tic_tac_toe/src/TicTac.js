@@ -143,6 +143,9 @@ function TicTac() {
                 };
                 i += 1;
             };
+            if (otherPlayer.forks.length === 1){
+                temp = 0;
+            };
             this.moveElement(this.available, currentPlayer.squares, otherPlayer.forks[temp]);
             return;
         };
@@ -152,5 +155,18 @@ function TicTac() {
             return;
         };
 
+        for(i = 1; i < 10; i += 2){
+            if(self.available.indexOf(i) > -1){
+                this.moveElement(this.available, currentPlayer.squares, i);
+                return;
+            }
+        }
+
+        for(i = 2; i < 9; i += 2){
+            if(self.available.indexOf(i) > -1){
+                this.moveElement(this.available, currentPlayer.squares, i);
+                return;
+            }
+        }
     };
 };
