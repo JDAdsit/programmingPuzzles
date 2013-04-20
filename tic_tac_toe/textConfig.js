@@ -1,6 +1,6 @@
 
 require.config({
-	deps: ['main'],
+	deps: ['textMain'],
 	paths: {
 		// JavaScript folders
 		lib: 'lib',
