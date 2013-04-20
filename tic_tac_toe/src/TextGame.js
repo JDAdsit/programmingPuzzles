@@ -1,4 +1,4 @@
-define(['src/TicTac'], function(Logic){
+define(['TicTac'], function(Logic){
 	var TextGame = function(){
         var ticTac = new TicTac();
         var userRow;
