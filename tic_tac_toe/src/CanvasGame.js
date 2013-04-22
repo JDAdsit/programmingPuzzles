@@ -14,8 +14,13 @@ define(['TicTac'], function(Logic){
         };
 
         var clearBoard = function() {
-            context.fillStyle = "#ffffaa";
+            context.fillStyle = "#c8b7b7";
             context.fillRect(0, 0, 300, 300);
+
+            context.fillStyle = "#000000";
+            context.fillRect(350, 50, 117, 42);
+            context.fillStyle = "#8184a3";
+            //context.fillStyle = "#5fcc74";
             context.fillRect(350, 50, 115, 40);
             resetButton = [350, 50, 465, 90];
             context.font = "20px _sans";
@@ -26,6 +31,7 @@ define(['TicTac'], function(Logic){
             var drawLines = function(startX, startY, endX, endY) {
                 context.fillStyle = "#000000";
                 context.beginPath();
+                context.lineWidth = 2;
                 context.moveTo(startX, startY);
                 context.lineTo(endX, endY);
                 context.stroke();
@@ -59,18 +65,18 @@ define(['TicTac'], function(Logic){
         };
 
         var showBoard = function(){
-            context.font = "20px _sans";
+            context.font = "40px _sans";
             context.textBaseline = "top";
             for(i = 1; i < 10; i++) {
                 if(i < 4) {
-                    var x = 100 * (i - 1) + 40;
-                    var y = 40;
+                    var x = 100 * (i - 1) + 35;
+                    var y = 30;
                 } else if (i < 7){
-                    var x = 100 * (i - 4) + 40;
-                    var y = 140;
+                    var x = 100 * (i - 4) + 35;
+                    var y = 130;
                 } else {
-                    var x = 100 * (i - 7) + 40;
-                    var y = 240;
+                    var x = 100 * (i - 7) + 35;
+                    var y = 230;
                 };
                 if(ticTac.playerOne.squares.indexOf(i) > -1){
                     context.fillText("X", x, y);

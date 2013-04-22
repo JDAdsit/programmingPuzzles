@@ -384,11 +384,11 @@ describe("TicTac", function() {
         it('playerTwo ai should setup for a win but not setup opponent for a fork', function(){
             tic.setArrays([3, 4, 2, 6, 7, 8], [5, 9], [1]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
-            expect(tic.playerTwo.squares).toEqual([1, 7]);
+            expect(tic.playerTwo.squares).toEqual([1, 3]);
 
             tic.setArrays([1, 4, 2, 6, 8, 9], [5, 7], [3]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
-            expect(tic.playerTwo.squares).toEqual([3, 9]);
+            expect(tic.playerTwo.squares).toEqual([1, 3]);
 
             tic.setArrays([2, 3, 4, 6, 7, 8], [1, 5], [9]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
@@ -396,19 +396,19 @@ describe("TicTac", function() {
 
             tic.setArrays([2, 1, 4, 6, 9, 8], [3, 5], [7]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
-            expect(tic.playerTwo.squares).toEqual([7, 9]);
+            expect(tic.playerTwo.squares).toEqual([1, 7]);
 
             tic.setArrays([1, 3, 6, 7, 8, 9], [2, 4], [5]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([1, 5]);
+
+            tic.setArrays([3, 4, 6, 7], [2, 5, 9], [1, 8]);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([1, 3, 8]);
         });
 
         it('playerTwo ai should choose the side with a forced move on an angle flanked center', function(){
             tic.setArrays([2, 3, 4, 6, 7, 8], [1, 9], [5]);
-            tic.aiTurn(tic.playerTwo, tic.playerOne);
-            expect(tic.playerTwo.squares).toEqual([2, 5]);
-
-            tic.setArrays([1, 2, 4, 6, 8, 9], [3, 7], [5]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([2, 5]);
         });

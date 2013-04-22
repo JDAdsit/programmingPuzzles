@@ -136,12 +136,13 @@ function TicTac() {
         //set up forced plays, but dont force a fork
         if(otherPlayer.forks.length > 0 ){
             var temp = 0;
-            var i = 0;
+            var i = -1;
             while(temp === 0){
+                i += 1;
                 if(otherPlayer.forks[i] % 2 !== 0){
                     temp = i;
+                    break;
                 };
-                i += 1;
             };
             if (otherPlayer.forks.length === 1){
                 temp = 0;
@@ -150,11 +151,13 @@ function TicTac() {
             return;
         };
         
+        //takes the center if available
         if(self.available.diff([5]).length < self.available.length){
             this.moveElement(this.available, currentPlayer.squares, 5);
             return;
         };
 
+        //takes a corner
         for(i = 1; i < 10; i += 2){
             if(self.available.indexOf(i) > -1){
                 this.moveElement(this.available, currentPlayer.squares, i);
@@ -162,6 +165,7 @@ function TicTac() {
             }
         }
 
+        //takes a side
         for(i = 2; i < 9; i += 2){
             if(self.available.indexOf(i) > -1){
                 this.moveElement(this.available, currentPlayer.squares, i);
