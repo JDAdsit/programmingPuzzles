@@ -48,7 +48,7 @@ function TicTac() {
     };
 
     this.moveElement = function(arrayOne, arrayTwo, value){
-        //moves ownership of a spot from one array to another
+        //moves ownership of a square from one array to another
         for(var len = arrayOne.length, i = 0; i < len; i++){
             if(arrayOne[i] === value){
                 arrayTwo.push(arrayOne[i]);
@@ -65,11 +65,11 @@ function TicTac() {
         for(var i = 0; i < 8; i++){
             var playerOneTemp = self.wins[i].diff(self.playerOne.squares);
             var playerTwoTemp = self.wins[i].diff(self.playerTwo.squares);
-            if(playerOneTemp.length === 1 && playerOneTemp.diff(self.playerTwo.squares) > 0){
-                this.playerOne.possibleWins.push(self.wins[i].diff(self.playerOne.squares))
+            if(playerOneTemp.length === 1 && self.playerTwo.squares.indexOf(playerOneTemp[0]) === -1 ){
+                this.playerOne.possibleWins.push(playerOneTemp[0])
             };
-            if(playerTwoTemp.length === 1 && playerTwoTemp.diff(self.playerOne.squares) > 0){
-                this.playerTwo.possibleWins.push(self.wins[i].diff(self.playerTwo.squares))
+            if(playerTwoTemp.length === 1 && self.playerOne.squares.indexOf(playerTwoTemp[0]) === -1 ){
+                this.playerTwo.possibleWins.push(playerTwoTemp[0])
             };
         }
     };
@@ -98,6 +98,13 @@ function TicTac() {
         this.playerTwo.forks.sort();
     };
 
+    var itsBestToMoveHere = function(currentPlayer, playerAboutToWin) {
+        if(playerAboutToWin.length > 0){
+            self.moveElement(self.available, currentPlayer.squares, playerAboutToWin[0]);
+            return true;
+        };
+    };
+
     this.setBrains = function(brainOne, brainTwo){
         this.playerOne.brain = brainOne;
         this.playerTwo.brain = brainTwo;
@@ -110,21 +117,18 @@ function TicTac() {
         var otherPlayer = otherPlayer;
 
         //can current player win right now? make it so
-        if(currentPlayer.possibleWins.length > 0){
-            this.moveElement(this.available, currentPlayer.squares, currentPlayer.possibleWins[0][0]);
-            return;
+        if (itsBestToMoveHere(currentPlayer, currentPlayer.possibleWins)) {
+            return
         };
 
         //can opponent win right now? stop him
-        if (otherPlayer.possibleWins.length > 0){
-            this.moveElement(this.available, currentPlayer.squares, otherPlayer.possibleWins[0][0]);
-            return;
+        if (itsBestToMoveHere(currentPlayer, otherPlayer.possibleWins)) {
+            return
         };
 
         //set up a fork, so current player can win next turn
-        if(currentPlayer.forks.length > 0){
-            this.moveElement(this.available, currentPlayer.squares, currentPlayer.forks[0]);
-            return;
+        if (itsBestToMoveHere(currentPlayer, currentPlayer.forks)) {
+            return
         };
 
         //if second player is in that weird flanked position place a side

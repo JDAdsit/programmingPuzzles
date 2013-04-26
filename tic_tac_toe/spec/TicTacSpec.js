@@ -220,33 +220,33 @@ describe("TicTac", function() {
         it('playerOne.possibleWins should be 3 when playerOne has 1 and 2', function(){
             tic.setArrays([3, 4, 5, 6, 7, 8, 9], [1, 2], []);
             tic.possibleWins();
-            expect(tic.playerOne.possibleWins).toEqual([[3]]);
+            expect(tic.playerOne.possibleWins).toEqual([3]);
         });
 
         it('playerTwo.possibleWins should be 3 when playerTwo has 1 and 2', function(){
             tic.setArrays([3, 4, 5, 6, 7, 8, 9], [], [1, 2]);
             tic.possibleWins();
-            expect(tic.playerTwo.possibleWins).toEqual([[3]]);
+            expect(tic.playerTwo.possibleWins).toEqual([3]);
         });
 
         it('when playerOne has 6, 9 and playerTwo has 1, 2 playerOne.possibleWins should be 3 and playerTwo.possibleWins should be 3', function(){
             tic.setArrays([3, 4, 5, 7, 8], [6, 9], [1, 2]);
             tic.possibleWins();
-            expect(tic.playerOne.possibleWins).toEqual([[3]]);
-            expect(tic.playerTwo.possibleWins).toEqual([[3]]);
+            expect(tic.playerOne.possibleWins).toEqual([3]);
+            expect(tic.playerTwo.possibleWins).toEqual([3]);
         });
 
         it('when playerOne has 8, 9 and playerTwo has 1, 2 playerOne.possibleWins should be 7 and playerTwo.possibleWins should be 3', function(){
             tic.setArrays([3, 4, 5, 6, 7], [8, 9], [1, 2]);
             tic.possibleWins();
-            expect(tic.playerOne.possibleWins).toEqual([[7]]);
-            expect(tic.playerTwo.possibleWins).toEqual([[3]]);
+            expect(tic.playerOne.possibleWins).toEqual([7]);
+            expect(tic.playerTwo.possibleWins).toEqual([3]);
         });
 
         it('when playerOne has 3, 8, 9 and playerTwo has 1, 2 playerOne.possibleWins should be 6 or 7 and playerTwo.possibleWins should be empty', function(){
             tic.setArrays([4, 5, 6, 7], [3, 8, 9], [1, 2]);
             tic.possibleWins();
-            expect(tic.playerOne.possibleWins).toEqual([[7], [6]]);
+            expect(tic.playerOne.possibleWins).toEqual([7, 6]);
             expect(tic.playerTwo.possibleWins).toEqual([]);
         });
 
@@ -254,7 +254,7 @@ describe("TicTac", function() {
             tic.setArrays([3, 4, 5, 6], [8, 9], [1, 2, 7]);
             tic.possibleWins();
             expect(tic.playerOne.possibleWins).toEqual([]);
-            expect(tic.playerTwo.possibleWins).toEqual([[3], [4]]);
+            expect(tic.playerTwo.possibleWins).toEqual([3, 4]);
         });
     });
     
