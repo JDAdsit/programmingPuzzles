@@ -98,9 +98,9 @@ function TicTac() {
         this.playerTwo.forks.sort();
     };
 
-    var itsBestToMoveHere = function(currentPlayer, playerAboutToWin) {
-        if(playerAboutToWin.length > 0){
-            self.moveElement(self.available, currentPlayer.squares, playerAboutToWin[0]);
+    var itsBestToMoveHere = function(currentPlayer, listToMoveFrom) {
+        if(listToMoveFrom.length > 0){
+            self.moveElement(self.available, currentPlayer.squares, listToMoveFrom[0]);
             return true;
         };
     };
