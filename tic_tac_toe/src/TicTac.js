@@ -117,22 +117,22 @@ function TicTac() {
         var otherPlayer = otherPlayer;
 
         //can current player win right now? make it so
-        if (itsBestToMoveHere(currentPlayer, currentPlayer.possibleWins)) {
+        if(itsBestToMoveHere(currentPlayer, currentPlayer.possibleWins)) {
             return
         };
 
         //can opponent win right now? stop him
-        if (itsBestToMoveHere(currentPlayer, otherPlayer.possibleWins)) {
+        if(itsBestToMoveHere(currentPlayer, otherPlayer.possibleWins)) {
             return
         };
 
         //set up a fork, so current player can win next turn
-        if (itsBestToMoveHere(currentPlayer, currentPlayer.forks)) {
+        if(itsBestToMoveHere(currentPlayer, currentPlayer.forks)) {
             return
         };
 
         //if second player is in that weird flanked position place a side
-        if(currentPlayer.squares[0] === 5 && ((otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9) || (otherPlayer.squares[0] === 3 && otherPlayer.squares[1] === 7))){
+        if(currentPlayer.squares[0] === 5 && (otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9)){
             this.moveElement(this.available, currentPlayer.squares, 2);
             return;
         };
@@ -156,7 +156,7 @@ function TicTac() {
         };
         
         //takes the center if available
-        if(self.available.diff([5]).length < self.available.length){
+        if(self.available.indexOf(5) > -1){
             this.moveElement(this.available, currentPlayer.squares, 5);
             return;
         };
