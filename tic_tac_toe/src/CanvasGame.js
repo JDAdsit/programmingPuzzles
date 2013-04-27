@@ -1,4 +1,4 @@
-define(['TicTac', 'AI'], function(){
+define(['TicTac'], function(){
 	var CanvasGame = function(){
         var ticTac = new TicTac();
         var userRow;
