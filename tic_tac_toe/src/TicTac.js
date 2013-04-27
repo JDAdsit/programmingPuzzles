@@ -98,16 +98,16 @@ function TicTac() {
         this.playerTwo.forks.sort();
     };
 
+    this.setBrains = function(brainOne, brainTwo){
+        this.playerOne.brain = brainOne;
+        this.playerTwo.brain = brainTwo;
+    };
+
     var itsBestToMoveHere = function(currentPlayer, listToMoveFrom) {
         if(listToMoveFrom.length > 0){
             self.moveElement(self.available, currentPlayer.squares, listToMoveFrom[0]);
             return true;
         };
-    };
-
-    this.setBrains = function(brainOne, brainTwo){
-        this.playerOne.brain = brainOne;
-        this.playerTwo.brain = brainTwo;
     };
 
     this.aiTurn = function(currentPlayer, otherPlayer){
@@ -132,7 +132,7 @@ function TicTac() {
         };
 
         //if second player is in that weird flanked position place a side
-        if(currentPlayer.squares[0] === 5 && (otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9)){
+        if(currentPlayer.squares[0] === 5 && ((otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9) || (otherPlayer.squares[0] === 3 && otherPlayer.squares[1] === 7))){
             this.moveElement(this.available, currentPlayer.squares, 2);
             return;
         };

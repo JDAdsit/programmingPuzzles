@@ -411,6 +411,10 @@ describe("TicTac", function() {
             tic.setArrays([2, 3, 4, 6, 7, 8], [1, 9], [5]);
             tic.aiTurn(tic.playerTwo, tic.playerOne);
             expect(tic.playerTwo.squares).toEqual([2, 5]);
+
+            tic.setArrays([1, 2, 4, 6, 8, 9], [3, 7], [5]);
+            tic.aiTurn(tic.playerTwo, tic.playerOne);
+            expect(tic.playerTwo.squares).toEqual([2, 5]);
         });
 
         it('playerOne should take the center if it is free', function(){
