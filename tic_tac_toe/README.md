@@ -1,1 +1,1 @@
-This is a tic-tac-toe game. All the logic is in javascript and it is rendered in canvas(the ui on the text version is bad and was only used for playtesting it). Have fun playing it, but I don't think that you can beat the computer;)
+This is a tic-tac-toe game. All the logic is in javascript and it is rendered in canvas. Have fun playing it, but you won't be able to beat it.

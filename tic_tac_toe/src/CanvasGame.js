@@ -14,13 +14,13 @@ define(['TicTac'], function(){
         };
 
         var clearBoard = function() {
+            context.clearRect(0, 0, 500, 300)
             context.fillStyle = "#c8b7b7";
             context.fillRect(0, 0, 300, 300);
 
             context.fillStyle = "#000000";
             context.fillRect(350, 50, 117, 42);
             context.fillStyle = "#8184a3";
-            //context.fillStyle = "#5fcc74";
             context.fillRect(350, 50, 115, 40);
             resetButton = [350, 50, 465, 90];
             context.font = "20px _sans";
@@ -43,6 +43,19 @@ define(['TicTac'], function(){
         };
         clearBoard();
 
+        var gameOver = function(){
+            context.font = "18px _sans";
+            if(ticTac.playerOne.hasWon){
+                context.fillText("Player one", 360, 160);
+                context.fillText("has won", 360, 180);
+            } else if(ticTac.playerTwo.hasWon) {
+                context.fillText("Player two", 360, 160);
+                context.fillText("has won", 360, 180);
+            } else {
+                context.fillText("Cat has won", 360, 160);
+            }
+        };
+
         var doMouseDown = function(event) { 
             x = event.pageX;
             y = event.pageY;
@@ -62,6 +75,7 @@ define(['TicTac'], function(){
                 ticTac.checkForWinner();
                 showBoard();
             };
+            gameOver();
         };
 
         var showBoard = function(){
