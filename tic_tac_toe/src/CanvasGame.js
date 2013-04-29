@@ -1,12 +1,10 @@
 define(['TicTac'], function(){
 	var CanvasGame = function(){
         var ticTac = new TicTac();
-        var userRow;
-        var userColumn;
         ticTac.newGame();
         var theCanvas = document.getElementById("canvasContainer");
         var context = theCanvas.getContext("2d");
-        boxes = [];
+        var boxes = [];
         for (var i = 0; i < 3; i++) {
             boxes.push([0, i * 100, 100, 100 + i * 100]) 
             boxes.push([100, i * 100, 200, 100 + i * 100]) 
@@ -28,6 +26,9 @@ define(['TicTac'], function(){
             context.fillStyle = "#000000";
             context.fillText("Reset game", 360, 60);
 
+            context.fillText("Tic-Tac-Toe", 10, 330);
+            context.fillText("Try to get three in a row before your opponent does.", 10, 350);
+
             var drawLines = function(startX, startY, endX, endY) {
                 context.fillStyle = "#000000";
                 context.beginPath();
@@ -44,15 +45,15 @@ define(['TicTac'], function(){
         clearBoard();
 
         var gameOver = function(){
-            context.font = "18px _sans";
+            context.font = "20px _sans";
             if(ticTac.playerOne.hasWon){
-                context.fillText("Player one", 360, 160);
-                context.fillText("has won", 360, 180);
+                context.fillText("Player one has", 350, 160);
+                context.fillText("won the game", 350, 180);
             } else if(ticTac.playerTwo.hasWon) {
-                context.fillText("Player two", 360, 160);
-                context.fillText("has won", 360, 180);
+                context.fillText("Player two has", 350, 160);
+                context.fillText("won the game", 350, 180);
             } else {
-                context.fillText("Cat has won", 360, 160);
+                context.fillText("No one won", 350, 160);
             }
         };
 

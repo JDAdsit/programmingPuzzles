@@ -7,11 +7,11 @@ describe("TicTac", function() {
     });
 
     describe('newGame', function(){
-        it('should make a new board which is a nine element array', function(){
+        it('should make a new board', function(){
             expect(tic.available).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         });
 
-        it('should define the winning combonations', function(){
+        it('should define the winning combinations', function(){
             expect(tic.wins).toEqual([[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]);
         });
 
