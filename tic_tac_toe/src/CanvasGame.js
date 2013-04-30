@@ -45,15 +45,19 @@ define(['TicTac'], function(){
         clearBoard();
 
         var gameOver = function(){
+            var x = 350;
+            var y = 160;
+            
+            context.clearRect(x, y, 150, 45)
             context.font = "20px _sans";
             if(ticTac.playerOne.hasWon){
-                context.fillText("Player one has", 350, 160);
-                context.fillText("won the game", 350, 180);
+                context.fillText("Player one has", x, y);
+                context.fillText("won the game", x, y + 20);
             } else if(ticTac.playerTwo.hasWon) {
-                context.fillText("Player two has", 350, 160);
-                context.fillText("won the game", 350, 180);
+                context.fillText("Player two has", x, y);
+                context.fillText("won the game", x, y + 20);
             } else {
-                context.fillText("No one won", 350, 160);
+                context.fillText("No one won", x, y);
             }
         };
 

@@ -110,6 +110,57 @@ function TicTac() {
         };
     };
 
+    var flanked = function(currentPlayer, otherPlayer){
+        if(currentPlayer.squares[0] === 5 && ((otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9) || (otherPlayer.squares[0] === 3 && otherPlayer.squares[1] === 7))){
+            self.moveElement(self.available, currentPlayer.squares, 2);
+            return true;
+        };
+    };
+
+    var forcedPlays = function(currentPlayer, otherPlayer){
+        if(otherPlayer.forks.length > 0 ){
+                var temp = 0;
+                var i = -1;
+                while(temp === 0){
+                    i += 1;
+                    if(otherPlayer.forks[i] % 2 !== 0){
+                        temp = i;
+                        break;
+                    };
+                };
+                if (otherPlayer.forks.length === 1){
+                    temp = 0;
+                };
+                self.moveElement(self.available, currentPlayer.squares, otherPlayer.forks[temp]);
+                return true;
+            };
+    };
+
+    var takeCenter = function(currentPlayer, otherPlayer){
+        if(self.available.indexOf(5) > -1){
+            self.moveElement(self.available, currentPlayer.squares, 5);
+            return true;
+        };
+    };
+
+    var takeCorner = function(currentPlayer, otherPlayer){
+        for(i = 1; i < 10; i += 2){
+            if(self.available.indexOf(i) > -1){
+                self.moveElement(self.available, currentPlayer.squares, i);
+                return true;
+            }
+        }
+    };
+
+    var takeSide = function(currentPlayer, otherPlayer){
+        for(i = 2; i < 9; i += 2){
+            if(self.available.indexOf(i) > -1){
+                self.moveElement(self.available, currentPlayer.squares, i);
+                return;
+            }
+        }
+    };
+
     this.aiTurn = function(currentPlayer, otherPlayer){
         this.possibleWins();
         this.possibleForks();
@@ -132,49 +183,26 @@ function TicTac() {
         };
 
         //if second player is in that weird flanked position place a side
-        if(currentPlayer.squares[0] === 5 && ((otherPlayer.squares[0] === 1 && otherPlayer.squares[1] === 9) || (otherPlayer.squares[0] === 3 && otherPlayer.squares[1] === 7))){
-            this.moveElement(this.available, currentPlayer.squares, 2);
-            return;
+        if(flanked(currentPlayer, otherPlayer)) {
+            return
         };
 
         //set up forced plays, but dont force a fork
-        if(otherPlayer.forks.length > 0 ){
-            var temp = 0;
-            var i = -1;
-            while(temp === 0){
-                i += 1;
-                if(otherPlayer.forks[i] % 2 !== 0){
-                    temp = i;
-                    break;
-                };
-            };
-            if (otherPlayer.forks.length === 1){
-                temp = 0;
-            };
-            this.moveElement(this.available, currentPlayer.squares, otherPlayer.forks[temp]);
-            return;
+        if(forcedPlays(currentPlayer, otherPlayer)){
+            return
         };
-        
+
         //takes the center if available
-        if(self.available.indexOf(5) > -1){
-            this.moveElement(this.available, currentPlayer.squares, 5);
-            return;
+        if(takeCenter(currentPlayer, otherPlayer)){
+            return
         };
 
         //takes a corner
-        for(i = 1; i < 10; i += 2){
-            if(self.available.indexOf(i) > -1){
-                this.moveElement(this.available, currentPlayer.squares, i);
-                return;
-            }
-        }
+        if(takeCorner(currentPlayer, otherPlayer)){
+            return
+        };
 
         //takes a side
-        for(i = 2; i < 9; i += 2){
-            if(self.available.indexOf(i) > -1){
-                this.moveElement(this.available, currentPlayer.squares, i);
-                return;
-            }
-        }
+        takeSide(currentPlayer, otherPlayer);
     };
 };
