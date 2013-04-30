@@ -2,6 +2,9 @@ define(['TicTac'], function(){
 	var CanvasGame = function(){
         var ticTac = new TicTac();
         ticTac.newGame();
+        var textColor = "#000000";
+        var boardColor = "#c8b7b7";
+        var resetButtonColor = "#8184a3";
         var theCanvas = document.getElementById("canvasContainer");
         var context = theCanvas.getContext("2d");
         var boxes = [];
@@ -13,24 +16,24 @@ define(['TicTac'], function(){
 
         var clearBoard = function() {
             context.clearRect(0, 0, 500, 500)
-            context.fillStyle = "#c8b7b7";
+            context.fillStyle = boardColor;
             context.fillRect(0, 0, 300, 300);
 
-            context.fillStyle = "#000000";
+            context.fillStyle = textColor;
             context.fillRect(350, 50, 117, 42);
-            context.fillStyle = "#8184a3";
+            context.fillStyle = resetButtonColor;
             context.fillRect(350, 50, 115, 40);
             resetButton = [350, 50, 465, 90];
             context.font = "20px _sans";
             context.textBaseline = "top";
-            context.fillStyle = "#000000";
+            context.fillStyle = textColor;
             context.fillText("Reset game", 360, 60);
 
             context.fillText("Tic-Tac-Toe", 10, 330);
             context.fillText("Try to get three in a row before your opponent does.", 10, 350);
 
             var drawLines = function(startX, startY, endX, endY) {
-                context.fillStyle = "#000000";
+                context.fillStyle = textColor;
                 context.beginPath();
                 context.lineWidth = 2;
                 context.moveTo(startX, startY);
