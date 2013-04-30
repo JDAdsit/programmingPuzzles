@@ -12,7 +12,7 @@ define(['TicTac'], function(){
         };
 
         var clearBoard = function() {
-            context.clearRect(0, 0, 500, 300)
+            context.clearRect(0, 0, 500, 500)
             context.fillStyle = "#c8b7b7";
             context.fillRect(0, 0, 300, 300);
 
