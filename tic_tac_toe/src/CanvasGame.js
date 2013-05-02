@@ -1,4 +1,4 @@
-define(['TicTac'], function(){
+define(['TicTac'], function(TicTac){
 	var CanvasGame = function(){
         var ticTac = new TicTac();
         ticTac.newGame();
@@ -78,7 +78,7 @@ define(['TicTac'], function(){
                 if(ticTac.available.indexOf(box) < 0) {
                     return
                 };
-                ticTac.moveElement(ticTac.available, ticTac.playerOne.squares, box)
+                ticTac.moveElement(ticTac.playerOne.squares, box)
                 ticTac.aiTurn(ticTac.playerTwo, ticTac.playerOne);
                 ticTac.checkForWinner();
                 showBoard();
